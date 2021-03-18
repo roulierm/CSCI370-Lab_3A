@@ -3,7 +3,10 @@ package com.example.advancedadapter;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,21 +21,59 @@ public class MainActivity extends AppCompatActivity {
 
          listView = (ListView) findViewById(R.id.student);
 
-         String[] student1 = {"Bob", "Smith", "Computer Science"};
-         String[] student2 = {"Mary", "Johnson", "Communications"};
-         String[] student3 = {"Andrew", "Robertson", "Art History"};
-         String[] student4 = {"Nicole", "Baker", "Biology"};
-         String[] student5 = {"Olivia", "Helms", "Data Science"};
+         Student student;
+         ArrayList<Student> students = new ArrayList<>();
 
-        ArrayList<ArrayList<String> > students = new ArrayList<ArrayList<String> >();
+         student = new Student();
+         student.setFirstName("Bob");
+         student.setLastName("Smith");
+         student.setMajor("Computer Science");
+         students.add(student);
 
-        students.add(new ArrayList<String>(Arrays.asList(student1)));
-        students.add(new ArrayList<String>(Arrays.asList(student2)));
-        students.add(new ArrayList<String>(Arrays.asList(student3)));
-        students.add(new ArrayList<String>(Arrays.asList(student4)));
-        students.add(new ArrayList<String>(Arrays.asList(student5)));
+        student = new Student();
+        student.setFirstName("Mary");
+        student.setLastName("Johnson");
+        student.setMajor("Communications");
+        students.add(student);
+
+        student = new Student();
+        student.setFirstName("Andre");
+        student.setLastName("Robertson");
+        student.setMajor("Art History");
+        students.add(student);
+
+        student = new Student();
+        student.setFirstName("Nicole");
+        student.setLastName("Baker");
+        student.setMajor("Biology");
+        students.add(student);
+
+        student = new Student();
+        student.setFirstName("Olivia");
+        student.setLastName("Helms");
+        student.setMajor("Data Science");
+        students.add(student);
+
+        StudentAdapter adapter = new StudentAdapter(this,students);
+        listView.setAdapter(adapter);
 
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getApplicationContext(),"Short Click", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getApplicationContext(),"Long Click", Toast.LENGTH_SHORT).show();
+
+                return true;
+            }
+        });
 
     }
 }
